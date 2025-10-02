@@ -52,7 +52,7 @@ Before you begin, ensure you have the following software installed:
 This step imports the raw IMDb data into your database.
 
 1.  **Download IMDb Datasets**:
-    - Go to the [IMDb Datasets](https://developer.imdb.com/non-commercial-datasets/) official website.
+    - Go to the [IMDb Non-Commercial Datasets](https://developer.imdb.com/non-commercial-datasets/).
     - Download the following `.tsv.gz` files:
         - `name.basics.tsv.gz`
         - `title.basics.tsv.gz`
