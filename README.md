@@ -72,7 +72,7 @@ This step imports the raw IMDb data into your database.
     ```bash
     # Run from the importer directory
     # Replace "C:\path\to\your\datasets" with your actual path
-    mvn compile exec:java -Dexec.mainClass="org.example.Importer" -Dexec.args="C:\path\to\your\datasets"
+    mvn compile exec:java "-Dexec.mainClass=com.movierec.dataimport.Importer" "-Dexec.args=C:\path\to\your\datasets"
     ```
     - **Note**: The import process can take anywhere from a few minutes to half an hour, depending on your machine's performance.
 
