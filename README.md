@@ -19,7 +19,8 @@ Media Center is a powerful full-stack web application designed to provide a beau
 
 ## Screenshots
 
-*(Add your application screenshots here, e.g., homepage, detail page, filter panel, etc.)*
+<img width="2306" height="1479" alt="image" src="https://github.com/user-attachments/assets/a8af2469-d4e7-41c4-9340-7b22cdd494dd" />
+
 
 ## Installation and Setup Guide
 
