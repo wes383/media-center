@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("org.example.mapper")
+@MapperScan("com.movierec.recsys.mapper")
 public class BackendApplication {
 
     public static void main(String[] args) {
