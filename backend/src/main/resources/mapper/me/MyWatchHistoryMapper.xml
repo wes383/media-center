@@ -1,0 +1,85 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movierec.recsys.mapper.me.MyWatchHistoryMapper">
+
+    <insert id="upsertWatchHistory" parameterType="com.movierec.recsys.model.me.MyWatchHistory">
+        INSERT INTO my_watch_history (tconst, rating)
+        VALUES (#{tconst}, #{rating})
+        ON DUPLICATE KEY UPDATE rating = VALUES(rating);
+    </insert>
+
+    <select id="findByTconst" resultType="com.movierec.recsys.model.me.MyWatchHistory">
+        SELECT tconst, rating, added_at as addedAt
+        FROM my_watch_history
+        WHERE tconst = #{tconst}
+    </select>
+
+    <sql id="historyFilter">
+        <where>
+            <if test="titleType != null and titleType != ''">
+                AND t.titleType = #{titleType}
+            </if>
+            <if test="startYear != null">
+                AND t.startYear >= #{startYear}
+            </if>
+            <if test="minRating != null">
+                AND t.averageRating >= #{minRating}
+            </if>
+            <if test="genres != null and !genres.isEmpty()">
+                AND g.name IN
+                <foreach item="genre" collection="genres" open="(" separator="," close=")">
+                    #{genre}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+
+    <select id="findMyHistory" resultType="com.movierec.recsys.dto.MyWatchHistoryDto">
+        SELECT
+            h.tconst,
+            t.primaryTitle,
+            t.startYear,
+            t.averageRating,
+            t.numVotes,
+            h.rating,
+            h.added_at as addedAt
+        FROM my_watch_history h
+        JOIN titles t ON h.tconst = t.tconst
+        <if test="genres != null and !genres.isEmpty()">
+            JOIN title_genres tg ON t.tconst = tg.tconst
+            JOIN genres g ON tg.genre_id = g.id
+        </if>
+        <include refid="historyFilter" />
+        <if test="sortBy != null">
+            ORDER BY
+            <choose>
+                <when test="sortBy == 'popularity'">t.numVotes DESC</when>
+                <when test="sortBy == 'rating'">t.averageRating DESC</when>
+                <when test="sortBy == 'releaseDate'">t.startYear DESC</when>
+                <when test="sortBy == 'my_rating'">h.rating DESC</when>
+                <otherwise>h.added_at DESC</otherwise>
+            </choose>
+        </if>
+        <if test="sortBy == null">
+            ORDER BY h.added_at DESC
+        </if>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countMyHistory" resultType="long">
+        SELECT COUNT(DISTINCT h.tconst)
+        FROM my_watch_history h
+        JOIN titles t ON h.tconst = t.tconst
+        <if test="genres != null and !genres.isEmpty()">
+            JOIN title_genres tg ON t.tconst = tg.tconst
+            JOIN genres g ON tg.genre_id = g.id
+        </if>
+        <include refid="historyFilter" />
+    </select>
+
+    <delete id="deleteByTconst">
+        DELETE FROM my_watch_history WHERE tconst = #{tconst}
+    </delete>
+
+</mapper>

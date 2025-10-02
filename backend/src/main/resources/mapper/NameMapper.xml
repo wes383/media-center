@@ -1,0 +1,56 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movierec.recsys.mapper.NameMapper">
+
+    <resultMap id="nameDetailResultMap" type="com.movierec.recsys.dto.NameDetailDto">
+        <id property="nconst" column="nconst"/>
+        <result property="primaryName" column="primaryName"/>
+        <result property="birthYear" column="birthYear"/>
+        <result property="deathYear" column="deathYear"/>
+        <collection property="primaryProfessions" ofType="java.lang.String"
+                    select="findProfessionsByNconst" column="nconst"/>
+        <collection property="filmography" ofType="com.movierec.recsys.dto.FilmographyDto"
+                    select="findFilmographyByNconst" column="nconst"/>
+    </resultMap>
+
+    <select id="findNameDetailByNconst" resultMap="nameDetailResultMap">
+        SELECT
+            n.nconst,
+            n.primaryName,
+            n.birthYear,
+            n.deathYear
+        FROM names n
+        WHERE n.nconst = #{nconst}
+    </select>
+
+    <select id="findProfessionsByNconst" resultType="java.lang.String">
+        SELECT p.name
+        FROM name_professions np
+        JOIN professions p ON np.profession_id = p.id
+        WHERE np.nconst = #{nconst}
+    </select>
+
+    <select id="findFilmographyByNconst" resultType="com.movierec.recsys.dto.FilmographyDto">
+        SELECT
+            t.tconst,
+            t.primaryTitle,
+            t.startYear,
+            pr.category,
+            pr.characters
+        FROM principals pr
+        JOIN titles t ON pr.tconst = t.tconst
+        WHERE pr.nconst = #{nconst}
+        ORDER BY t.startYear DESC
+    </select>
+
+    <select id="searchNamesByQuery" resultType="com.movierec.recsys.dto.NameSearchResultDto">
+        SELECT
+            n.nconst,
+            n.primaryName
+        FROM names n
+        WHERE n.primaryName LIKE CONCAT('%', #{query}, '%')
+        LIMIT 10
+    </select>
+
+</mapper>

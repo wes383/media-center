@@ -1,0 +1,19 @@
+# Spring Boot Configuration
+
+spring:
+  # Database Connection Settings
+  # ---------------------------------
+  # Replace the following with your actual database credentials.
+  # It's recommended to use environment variables for sensitive data in production.
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/imdb_db
+    username: YOUR_DATABASE_USERNAME
+    password: YOUR_DATABASE_PASSWORD
+
+# MyBatis Configuration
+mybatis:
+  mapper-locations: classpath:mapper/*.xml,classpath:mapper/me/*.xml
+  type-aliases-package: org.example.model, org.example.dto, org.example.model.me
+  configuration:
+    map-underscore-to-camel-case: true

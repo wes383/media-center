@@ -1,0 +1,104 @@
+.person-detail-page {
+  padding: 2rem 0;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.person-main-info {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.person-profile-img, .person-profile-img-placeholder {
+  width: 200px;
+  min-width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  background-color: #e5e7eb;
+}
+
+.person-details {
+  flex: 1;
+}
+
+.person-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.person-meta p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.person-biography {
+  margin-bottom: 2rem;
+}
+
+.person-biography h2, .person-filmography h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.person-biography p {
+  line-height: 1.7;
+  font-size: 1.1rem;
+}
+
+.filmography-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filmography-item-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.filmography-item {
+  background-color: #f9fafb;
+  padding: 1rem 1.5rem;
+  border-radius: 9999px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.filmography-item:hover {
+  background-color: #f3f4f6;
+}
+
+.filmography-title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 1rem;
+}
+
+.filmography-role {
+  color: #4b5563;
+  font-size: 0.9rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.filmography-cat {
+  font-weight: 500;
+}
+
+.filmography-char {
+  color: #6b7280;
+  margin-left: 0.5rem;
+}

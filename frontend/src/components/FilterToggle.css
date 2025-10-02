@@ -1,0 +1,32 @@
+.filter-toggle-container {
+  display: flex;
+  background-color: #e5e7eb;
+  border-radius: 999px;
+  padding: 5px;
+  width: fit-content;
+}
+
+.filter-toggle-btn {
+  border: none;
+  background-color: transparent;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #374151;
+  transition: all 0.3s ease;
+}
+
+.filter-toggle-btn:hover {
+  background-color: #ffffff;
+  color: #111827;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.filter-toggle-btn.active {
+  background-color: #ffffff;
+  color: #111827;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}

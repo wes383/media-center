@@ -1,0 +1,292 @@
+.detail-page-container {
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+.detail-content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+}
+
+.detail-poster {
+  margin-top: 25px;
+}
+
+.detail-poster img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.detail-info {
+  color: #1f2937;
+  text-align: left;
+}
+
+.detail-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.detail-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.detail-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: -5px;
+}
+
+.genre-tag {
+  background-color: #e5e7eb;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.detail-rating {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.rating-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.rating-value.rating-green {
+  color: #22c55e;
+}
+
+.rating-value.rating-yellow {
+  color: #f59e0b;
+}
+
+.rating-value.rating-red {
+  color: #ef4444;
+}
+
+.rating-total {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-left: 4px;
+}
+
+.rating-votes {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.detail-plot {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: calc(2rem - 6px);
+}
+
+.detail-section {
+  margin-top: 2rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.cast-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.cast-member-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.cast-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cast-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 20%;
+  margin-bottom: 0.75rem;
+  background-color: #e5e7eb;
+}
+
+.cast-name {
+  font-weight: 600;
+}
+
+.cast-char {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.episodes-section {
+    grid-column: 1 / -1;
+}
+
+.episodes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.episode-item {
+  background: #f9fafb;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-extra-info {
+  margin-top: 12px;
+  padding-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.info-item {
+  color: #374151;
+}
+
+.info-item strong {
+  font-weight: 600;
+  margin-right: 0.5rem;
+  color: #111827;
+}
+
+@media (max-width: 768px) {
+  .detail-content {
+    grid-template-columns: 1fr;
+  }
+  .detail-poster {
+    width: 60%;
+    margin: 0 auto;
+  }
+}
+
+/* Seasons Accordion Styles */
+.seasons-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.season-item {
+  border: none;
+  border-radius: 30px;
+  overflow: hidden;
+  background-color: #f3f4f6;
+}
+
+.season-header {
+  background-color: #f3f4f6;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  border: none;
+  text-align: left;
+  font-size: 1.25rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.season-header:hover {
+  background-color: #f3f4f6;
+}
+
+.episodes-list {
+  padding: 1rem;
+  background-color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.episode-item {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: #fff;
+  border-radius: 30px;
+}
+
+.episode-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+}
+
+.episode-number {
+  font-weight: 700;
+  color: #4b5563;
+  flex-shrink: 0;
+}
+
+.episode-title {
+  font-weight: 600;
+  flex-grow: 1;
+}
+
+.episode-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #4b5563;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.episode-rating svg {
+  color: #f59e0b;
+}
+
+.episode-overview {
+  font-size: 0.95rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0.25rem 0;
+  padding-left: 3.2rem;
+}
+
+.episode-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+  padding-left: 3.2rem;
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movierec.recsys.mapper.TitleMapper">
+
+    <resultMap id="titleDetailResultMap" type="com.movierec.recsys.dto.TitleDetailDto">
+        <id property="tconst" column="tconst"/>
+        <result property="titleType" column="titleType"/>
+        <result property="primaryTitle" column="primaryTitle"/>
+        <result property="startYear" column="startYear"/>
+        <result property="runtimeMinutes" column="runtimeMinutes"/>
+        <result property="averageRating" column="averageRating"/>
+        <result property="numVotes" column="numVotes"/>
+        <collection property="genres" ofType="java.lang.String">
+            <result column="genre_name"/>
+        </collection>
+        <collection property="principals" ofType="com.movierec.recsys.dto.PrincipalDto">
+            <result property="nconst" column="p_nconst"/>
+            <result property="primaryName" column="p_primaryName"/>
+            <result property="category" column="p_category"/>
+            <result property="job" column="p_job"/>
+            <result property="characters" column="p_characters"/>
+        </collection>
+    </resultMap>
+
+    <select id="findTitles" resultType="com.movierec.recsys.model.Title">
+        SELECT DISTINCT t.*
+        FROM titles t
+        <if test="genres != null and !genres.isEmpty()">
+            JOIN title_genres tg ON t.tconst = tg.tconst
+            JOIN genres g ON tg.genre_id = g.id
+        </if>
+        <where>
+            <if test="titleType != null and titleType != ''">
+                AND t.titleType = #{titleType}
+            </if>
+            <if test="startYear != null">
+                AND t.startYear >= #{startYear}
+            </if>
+            <if test="minRating != null">
+                AND t.averageRating >= #{minRating}
+            </if>
+            <if test="minVotes != null">
+                AND t.numVotes >= #{minVotes}
+            </if>
+            <if test="search != null and search != ''">
+                AND t.primaryTitle LIKE CONCAT('%', #{search}, '%')
+            </if>
+            <if test="genres != null and !genres.isEmpty()">
+                AND g.name IN
+                <foreach item="genre" collection="genres" open="(" separator="," close=")">
+                    #{genre}
+                </foreach>
+            </if>
+        </where>
+        <if test="sortBy != null">
+            ORDER BY
+            <choose>
+                <when test="sortBy == 'popularity'">
+                    t.numVotes DESC
+                </when>
+                <when test="sortBy == 'rating'">
+                    t.averageRating DESC
+                </when>
+                <when test="sortBy == 'releaseDate'">
+                    t.startYear DESC
+                </when>
+            </choose>
+        </if>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="findTitleDetailByTconst" resultMap="titleDetailResultMap">
+        SELECT
+            t.tconst, t.titleType, t.primaryTitle, t.startYear, t.runtimeMinutes, t.averageRating, t.numVotes,
+            g.name AS genre_name,
+            p.nconst AS p_nconst,
+            n.primaryName AS p_primaryName,
+            p.category AS p_category,
+            p.job AS p_job,
+            p.characters AS p_characters
+        FROM titles t
+        LEFT JOIN title_genres tg ON t.tconst = tg.tconst
+        LEFT JOIN genres g ON tg.genre_id = g.id
+        LEFT JOIN principals p ON t.tconst = p.tconst
+        LEFT JOIN names n ON p.nconst = n.nconst
+        WHERE t.tconst = #{tconst}
+        ORDER BY p.ordering
+    </select>
+
+    <select id="searchTitlesByQuery" resultType="com.movierec.recsys.dto.TitleSearchResultDto">
+        SELECT
+            t.tconst,
+            t.primaryTitle,
+            t.startYear
+        FROM titles t
+        WHERE t.primaryTitle LIKE CONCAT('%', #{query}, '%')
+        LIMIT 10
+    </select>
+
+    <resultMap id="seasonResultMap" type="com.movierec.recsys.dto.SeasonDto">
+        <id property="seasonNumber" column="seasonNumber"/>
+        <collection property="episodes" ofType="com.movierec.recsys.dto.EpisodeDto">
+            <id property="tconst" column="ep_tconst"/>
+            <result property="episodeNumber" column="episodeNumber"/>
+            <result property="primaryTitle" column="ep_primaryTitle"/>
+            <result property="averageRating" column="ep_averageRating"/>
+        </collection>
+    </resultMap>
+
+    <select id="findSeasonsByParentTconst" resultMap="seasonResultMap">
+        SELECT
+            e.seasonNumber,
+            e.episodeNumber,
+            t.tconst AS ep_tconst,
+            t.primaryTitle AS ep_primaryTitle,
+            t.averageRating AS ep_averageRating
+        FROM episodes e
+        JOIN titles t ON e.tconst = t.tconst
+        WHERE e.parentTconst = #{parentTconst}
+        ORDER BY e.seasonNumber, e.episodeNumber
+    </select>
+
+    <select id="findEpisodeSource" resultType="com.movierec.recsys.dto.EpisodeSourceDto">
+        SELECT
+            p.tconst AS seriesTconst,
+            p.primaryTitle AS seriesPrimaryTitle,
+            p.startYear AS seriesStartYear,
+            e.seasonNumber,
+            e.episodeNumber
+        FROM episodes e
+                 JOIN titles p ON e.parentTconst = p.tconst
+        WHERE e.tconst = #{tconst}
+    </select>
+</mapper>
