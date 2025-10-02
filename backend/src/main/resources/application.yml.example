@@ -14,6 +14,6 @@ spring:
 # MyBatis Configuration
 mybatis:
   mapper-locations: classpath:mapper/*.xml,classpath:mapper/me/*.xml
-  type-aliases-package: org.example.model, org.example.dto, org.example.model.me
+  type-aliases-package: com.movierec.recsys.model, com.movierec.recsys.dto, com.movierec.recsys.model.me
   configuration:
     map-underscore-to-camel-case: true
