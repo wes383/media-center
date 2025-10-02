@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class DatabaseManager {
     // --- Configure your database connection details here ---
     private static final String DB_URL = "jdbc:mysql://localhost:3306/imdb_db?rewriteBatchedStatements=true";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    private static final String USER = "YOUR_DATABASE_USERNAME";
+    private static final String PASSWORD = "YOUR_DATABASE_PASSWORD";
 
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
